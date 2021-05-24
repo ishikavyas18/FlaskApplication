@@ -1,0 +1,45 @@
+{% extends 'main1.html' %}
+ {% block title %}
+<title>Home </title>
+{% endblock title %}
+{% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+     <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+  <strong>Message:</strong> {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<img src="{{ url_for('static', filename='img/blogsspic.jpg') }}" alt="" style="width:100% ; height:500px"
+            class="my-3">
+
+<div class ="row mb-2">
+{% for blog in data %}
+<div class="col-md-6 my-4">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Greeting</strong>
+          <h4 class="mb-0">{{blog.title}}</h4>
+          <div class="mb-1 text-muted">{{blog.pub_date}}</div>
+          <p class="card-text mb-auto">{{blog.content}}</p>
+         <h5>Author:- {{blog.author}}</h5>
+            <a href="/blog_detail/{{blog.blog_id}} " class="stretched-link btn btn-primary">Continue reading</a>
+
+        </div>
+      </div>
+</div>
+
+
+{% endfor %}
+
+        </div>
+
+{% endblock body %}
